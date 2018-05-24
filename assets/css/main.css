@@ -69,7 +69,7 @@
 
 	body {
 		background: #fff;
-		overflow: hidden;
+		/* overflow: hidden; */
 	}
 
 		body.loading * {
@@ -164,7 +164,7 @@
 		height: 100%;
 		left: 0;
 		opacity: 0;
-		position: fixed;
+		/* position: fixed; */
 		top: 0;
 		width: 100%;
 	}
@@ -329,7 +329,7 @@
 	#main {
 		height: 100%;
 		left: 0;
-		position: fixed;
+		/* position: fixed; */
 		text-align: center;
 		top: 0;
 		width: 100%;
@@ -508,7 +508,7 @@
 		opacity: 0;
 		position: relative;
 		text-align: center;
-		top: -1em;
+		top: 1em;
 		vertical-align: middle;
 		width: 90%;
 	}
@@ -681,7 +681,7 @@
 		height: 6em;
 		left: 0;
 		line-height: 8em;
-		position: absolute;
+		position: fixed;
 		text-align: center;
 		width: 100%;
 	}
@@ -769,6 +769,11 @@
 		} }
 
 /* Normal */
+    @media screen and (min-width: 737px) {
+		#header {
+		top: 5em;
+		}
+	}
 
 	@media screen and (max-width: 1280px) {
 
