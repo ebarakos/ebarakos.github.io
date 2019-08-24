@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: ebarakos.com
+Token: 7be61d799bf554ceed02c389ae60e0eec0ac84b6e9da40d9a71ebf899b6695d2
