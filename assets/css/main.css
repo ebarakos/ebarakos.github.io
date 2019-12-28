@@ -1,6 +1,6 @@
 /* @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
  */
-@import url("https://fonts.googleapis.com/css?family=Archivo+Narrow|Saira+Extra+Condensed|Wire+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato|Noto+Sans|Oswald|Roboto|Roboto+Condensed|Source+Sans+Pro&display=swap");
 @import url("font-awesome.min.css");
 
 /*
@@ -166,6 +166,11 @@ textarea {
   font-family: "Archivo Narrow", sans-serif;
   /* font-family: "Saira Extra Condensed", sans-serif; */
   /* font-family: "Wire One", sans-serif; */
+
+  /* font-family: "Roboto", sans-serif; */
+  /* font-family: "Lato", sans-serif; */
+  font-family: "Source Sans Pro", sans-serif;
+  /* font-family: 'Noto Sans', sans-serif; */
   font-size: 15pt;
   font-weight: 300 !important;
   letter-spacing: -0.025em;
@@ -291,7 +296,7 @@ a:hover {
   transform: translate3d(0, 0, 0);
   /* Set your background with this */
 
-  background: #002556 top left;
+  background: #0c2238 top left;
   background-repeat: repeat-x;
   height: 100%;
   left: 0;
