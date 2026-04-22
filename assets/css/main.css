@@ -1,353 +1,222 @@
 /*
-	Aerial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Codex (dark) — ebarakos.com
+	A single-page, two-facing-pages layout.
+	Left:  Vita Activa  — professional links
+	Right: Vita Contemplativa — personal / philosophical links
 */
 
 /* Reset */
+html, body, div, span, h1, p, a, em, ul, li {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+ul { list-style: none; }
+*, *:before, *:after { box-sizing: border-box; }
 
-html, body, div, span, h1, p, a, i, ul, li,
-footer, header, nav {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+/* Tokens */
+:root {
+	--bg: #0b1418;
+	--ink: #e6ede8;
+	--muted: #7a8a86;
+	--rule: rgba(230, 237, 232, 0.16);
+	--accent: #6fb3a8;     /* muted teal */
+	--accent-2: #8fbcc9;   /* cool blue (reserved) */
 }
 
-footer, header, nav {
-  display: block;
-}
-
+/* Base */
+html, body { height: 100%; }
 body {
-  line-height: 1;
+	font-family: "EB Garamond", serif;
+	color: var(--ink);
+	background: var(--bg);
+	overflow: hidden;
+	font-size: 18px;
+	line-height: 1.55;
 }
 
-ul {
-  list-style: none;
+/* Ambient glows + fine noise (pure CSS, no assets) */
+body::before {
+	content: "";
+	position: fixed; inset: 0;
+	background:
+		radial-gradient(ellipse at 30% 25%, rgba(111,179,168,0.05), transparent 55%),
+		radial-gradient(ellipse at 75% 80%, rgba(143,188,201,0.04), transparent 55%);
+	pointer-events: none;
+}
+body::after {
+	content: "";
+	position: fixed; inset: 0;
+	background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+	background-size: 3px 3px;
+	opacity: 0.5;
+	pointer-events: none;
 }
 
-/* Box Model */
+/* Layout: two facing pages with a hairline spine */
+.shell {
+	position: relative;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1px 1fr;
+	animation: fade 1.3s ease both;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
-*, *:before, *:after {
-  box-sizing: border-box;
+.spine {
+	background: var(--rule);
+	height: 72%;
+	align-self: center;
+	width: 1px;
+	position: relative;
+}
+.spine::before, .spine::after {
+	content: "";
+	position: absolute;
+	left: 50%; transform: translateX(-50%);
+	width: 5px; height: 5px; border-radius: 50%;
+	background: var(--accent);
+	opacity: 0.75;
+}
+.spine::before { top: -14px; }
+.spine::after  { bottom: -14px; }
+
+.page {
+	padding: 72px 88px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+}
+.page-left  { text-align: right; }
+.page-right { text-align: left; }
+
+.folio {
+	font-size: 11px;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: var(--muted);
 }
 
-/* Basic */
-
-body, input, select, textarea {
-  color: #fff;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 15pt;
-  font-weight: 300 !important;
-  letter-spacing: -0.025em;
-  line-height: 1.75em;
+.plate {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-body {
-  background: #fff;
+/* Display headings */
+h1 {
+	font-family: "EB Garamond", serif;
+	font-weight: 500;
+	font-size: 60px;
+	line-height: 1.02;
+	letter-spacing: -0.015em;
+}
+h1 em {
+	color: var(--accent);
+	font-style: italic;
+	font-weight: 500;
 }
 
-body.loading * {
-  animation: none !important;
+.name-small {
+	font-style: italic;
+	color: var(--muted);
+	font-size: 18px;
+	margin-top: 16px;
 }
 
-a {
-  transition: border-color 0.2s ease-in-out;
-  border-bottom: dotted 1px;
-  color: inherit;
-  outline: 0;
-  text-decoration: none;
+.rule {
+	display: inline-block;
+	width: 56px; height: 1px;
+	background: var(--ink);
+	opacity: 0.4;
+	margin: 28px 0 24px 0;
 }
 
-a:hover {
-  border-color: transparent;
+.section-label {
+	font-variant: small-caps;
+	letter-spacing: 0.22em;
+	font-size: 14px;
+	color: var(--accent);
+	margin-bottom: 14px;
 }
 
-/* Wrapper */
+/* Listings */
+.listing {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-size: 20px;
+}
+.listing a {
+	color: var(--ink);
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+	padding-bottom: 2px;
+	transition: color .2s;
+}
+.listing a::after {
+	content: "";
+	position: absolute;
+	left: 0; right: 0; bottom: 0;
+	height: 1px;
+	background: var(--accent);
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform .3s ease;
+}
+.page-right .listing a::after { transform-origin: left; }
+.listing a:hover { color: var(--accent); }
+.listing a:hover::after { transform: scaleX(1); }
+.listing em {
+	display: block;
+	font-size: 14px;
+	color: var(--muted);
+	margin-top: 2px;
+	font-style: italic;
+}
+.page-left .listing { align-items: flex-end; }
 
-@keyframes wrapper {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+.greek-inline {
+	font-style: italic;
+	color: var(--muted);
+	font-size: 15px;
 }
 
-#wrapper {
-  animation: wrapper 3s forwards;
-  height: 100%;
-  left: 0;
-  opacity: 0;
-  top: 0;
-  width: 100%;
+.epigraph {
+	font-style: italic;
+	color: var(--muted);
+	font-size: 15px;
+	max-width: 320px;
 }
-
-/* BG */
-
-#bg {
-  background: #0c2238;
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-/* Overlay */
-
-@keyframes overlay {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-#overlay {
-  animation: overlay 1.5s 1.5s forwards;
-  height: 100%;
-  left: 0;
-  opacity: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-/* Main */
-
-#main {
-  height: 100%;
-  left: 0;
-  text-align: center;
-  top: 0;
-  width: 100%;
-}
-
-#main:before {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  margin-right: 0;
-  vertical-align: middle;
-  width: 1px;
-}
-
-/* Header */
-
-@keyframes header {
-  0% {
-    transform: translate3d(0, 1em, 0);
-    opacity: 0;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
-
-@keyframes nav-icons {
-  0% {
-    transform: translate3d(0, 1em, 0);
-    opacity: 0;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
-
-#header {
-  animation: header 1s 2.25s forwards;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  cursor: default;
-  display: inline-block;
-  opacity: 0;
-  position: relative;
-  text-align: center;
-  top: 1em;
-  vertical-align: middle;
-  width: 90%;
-}
-
-#header h1 {
-  font-size: 4.35em;
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1em;
-}
-
-#header p {
-  font-size: 1.25em;
-  margin: 0.75em 0 0.25em 0;
-  opacity: 0.75;
-}
-
-#header nav {
-  margin: 1.5em 0 0 0;
-}
-
-#header nav li {
-  animation: nav-icons 0.5s ease-in-out forwards;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  display: inline-block;
-  height: 5.35em;
-  line-height: 5.885em;
-  opacity: 0;
-  position: relative;
-  top: 0;
-  width: 5.35em;
-}
-
-#header nav li:nth-child(1) { animation-delay: 2.5s; }
-#header nav li:nth-child(2) { animation-delay: 2.75s; }
-#header nav li:nth-child(3) { animation-delay: 3s; }
-#header nav li:nth-child(4) { animation-delay: 3.25s; }
-#header nav li:nth-child(5) { animation-delay: 3.5s; }
-
-#header nav a {
-  -webkit-tap-highlight-color: transparent;
-  border: 0;
-  display: inline-block;
-  width: 2.5em;
-  height: 2.5em;
-  font-size: 1.75em;
-  position: relative;
-}
-
-#header nav a:before {
-  transition: all 0.2s ease-in-out;
-  border-radius: 100%;
-  border: solid 1px #fff;
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  min-width: 44px;
-  min-height: 44px;
-}
-
-#header nav a svg {
-  width: 1em;
-  height: 1em;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-}
-
-#header nav a:hover {
-  font-size: 1.925em;
-}
-
-#header nav a:hover:before {
-  background-color: rgba(255, 255, 255, 0.175);
-}
-
-#header nav a:active {
-  font-size: 1.6625em;
-}
-
-#header nav a:active:before {
-  background-color: rgba(255, 255, 255, 0.35);
-}
-
-#header nav a:focus-visible:before {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-
-#header nav a span {
-  display: none;
-}
-
-/* Footer */
-
-#footer {
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0.5) 75%
-  );
-  bottom: 0;
-  cursor: default;
-  height: 6em;
-  left: 0;
-  line-height: 8em;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-}
+.page-left .epigraph { margin-left: auto; }
 
 /* Reduced motion */
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Wide */
-
-@media screen and (max-width: 1680px) {
-  body, input, select, textarea {
-    font-size: 13pt;
-  }
-}
-
-/* Normal */
-
-@media screen and (min-width: 737px) {
-  #header {
-    top: 5em;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  body, input, select, textarea {
-    font-size: 12pt;
-  }
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
 }
 
 /* Mobile */
-
-@media screen and (max-width: 736px) {
-  body {
-    min-width: 320px;
-  }
-
-  body, input, select, textarea {
-    font-size: 11pt;
-  }
-
-  #header h1 {
-    font-size: 2.5em;
-  }
-
-  #header p {
-    font-size: 1em;
-  }
-
-  #header nav {
-    font-size: 1em;
-  }
-
-  #header nav a:hover {
-    font-size: 1.75em;
-  }
-
-  #header nav a:active {
-    font-size: 1.75em;
-  }
-}
-
-/* Mobile (Portrait) */
-
-@media screen and (max-width: 480px) {
-  #header nav {
-    padding: 0 1em;
-  }
+@media (max-width: 900px) {
+	body { overflow: auto; }
+	.shell {
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1px 1fr;
+		min-height: 100%;
+	}
+	.spine { width: 72%; height: 1px; margin: 0 auto; }
+	.spine::before, .spine::after { display: none; }
+	.page { padding: 48px 28px; }
+	.page-left, .page-right { text-align: left; }
+	.page-left .listing { align-items: flex-start; }
+	.page-left .epigraph { margin-left: 0; }
+	h1 { font-size: 40px; }
 }
