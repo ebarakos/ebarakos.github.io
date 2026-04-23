@@ -6,6 +6,9 @@ REVIEW.md
 personal website.zip
 handoff/
 
+# Local render helpers (og-card, screenshot scripts, etc.) — not shipped
+tools/
+
 # AI assistant artifacts — session state, local caches, transcripts.
 # Keep these local; nothing in here should ship to a public repo.
 .claude/
