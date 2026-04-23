@@ -1,68 +1,145 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
-		<title>Evangelos Barakos' personal webpage</title>
+		<title>Evangelos Barakos</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="Evangelos Barakos — Software Engineer, Blockchain Consultant, and perpetual student. Portfolio, CV, philosophy notes, and projects." />
+		<meta name="description" content="Evangelos Barakos — software engineer and perpetual student. Seven years in blockchain integrations. Personal page, notes, and apps-in-progress." />
+		<meta name="theme-color" content="#0b1418" />
+		<meta name="color-scheme" content="dark light" />
+		<link rel="canonical" href="https://www.ebarakos.com/" />
+
+		<script>
+			(function () {
+				try {
+					var saved = localStorage.getItem('theme');
+					document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+				} catch (_) {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			})();
+		</script>
+
 		<meta property="og:title" content="Evangelos Barakos" />
-		<meta property="og:description" content="Software Engineer, Blockchain Consultant, and perpetual student." />
+		<meta property="og:description" content="Software engineer. Perpetual student. Seven years in blockchain integrations." />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.ebarakos.com/" />
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:image" content="https://www.ebarakos.com/assets/og-image.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="Evangelos Barakos" />
-		<meta name="twitter:description" content="Software Engineer, Blockchain Consultant, and perpetual student." />
+		<meta name="twitter:description" content="Software engineer. Perpetual student. Seven years in blockchain integrations." />
+		<meta name="twitter:image" content="https://www.ebarakos.com/assets/og-image.png" />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<!-- TODO: replace favicon with a mark matching the Codex (dark) aesthetic -->
-		<link rel="shortcut icon" type="image/png" href="assets/favicon.ico" />
+
+		<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+		<link rel="alternate icon" href="assets/favicon.ico" />
+		<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Evangelos Barakos",
+			"url": "https://www.ebarakos.com/",
+			"email": "mailto:e.mparakos@gmail.com",
+			"knowsAbout": ["Software engineering", "Blockchain integrations", "Philosophy"],
+			"sameAs": [
+				"https://www.linkedin.com/in/ebarakos",
+				"https://github.com/ebarakos"
+			]
+		}
+		</script>
 	</head>
 	<body>
-		<div class="shell">
+		<button class="theme-toggle" type="button" aria-label="Switch between dark and light theme" aria-pressed="false">
+			<span class="theme-opt" data-opt="dark">dark</span>
+			<span class="theme-sep" aria-hidden="true"> · </span>
+			<span class="theme-opt" data-opt="light">light</span>
+		</button>
 
-			<div class="page page-left">
+		<main class="shell">
+
+			<section class="page page-left" aria-labelledby="name-heading">
 				<div class="folio">I · Vita Activa</div>
 				<div class="plate">
-					<h1>Evangelos<br/>Barakos</h1>
-					<div class="name-small">Εὐάγγελος Μπαράκος</div>
+					<div class="plate-head">
+						<h1 id="name-heading">Evangelos<br/>Barakos</h1>
+						<p class="tagline">Software engineer. Perpetual student.</p>
+						<div class="bio">
+							<p>Seven years in blockchain integrations.</p>
+							<p>Currently: building apps, reading philosophy.</p>
+						</div>
+					</div>
 					<span class="rule"></span>
-					<div class="section-label">In the world</div>
-					<ul class="listing">
-						<li><a href="https://www.linkedin.com/in/ebarakos" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-						<li><a href="https://github.com/ebarakos" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-						<li><a href="https://drive.google.com/file/d/1MjYb4zWUj9iPk62DQZoItMI82ptVKEJk/view" target="_blank" rel="noopener noreferrer">Curriculum Vitae</a></li>
-						<li><a href="mailto:e.mparakos@gmail.com">Correspondence</a></li>
-					</ul>
+					<div class="plate-body">
+						<nav aria-label="Professional links">
+							<ul class="listing">
+								<li><a href="https://www.linkedin.com/in/ebarakos" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+								<li><a href="https://github.com/ebarakos" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+								<li><a href="https://drive.google.com/file/d/1MjYb4zWUj9iPk62DQZoItMI82ptVKEJk/view" target="_blank" rel="noopener noreferrer">Curriculum Vitae</a></li>
+								<li><a href="mailto:e.mparakos@gmail.com">Correspondence</a></li>
+							</ul>
+						</nav>
+					</div>
 				</div>
-				<div class="epigraph">
-					Software engineer, blockchain consultant.
-				</div>
-			</div>
+			</section>
 
-			<div class="spine"></div>
+			<div class="spine" aria-hidden="true"></div>
 
-			<div class="page page-right">
+			<section class="page page-right" aria-labelledby="preoccupations-heading">
 				<div class="folio">II · Vita Contemplativa</div>
 				<div class="plate">
-					<h1>Inquiries<br/><em>into truth</em></h1>
-					<div class="name-small">&nbsp;</div>
+					<div class="plate-head">
+						<h1 id="preoccupations-heading">Preoccupations</h1>
+						<p class="tagline">Notes, fragments, apps-in-progress.</p>
+					</div>
 					<span class="rule"></span>
-					<div class="section-label">In the mind</div>
-					<ul class="listing">
-						<li>
-							<a href="https://philosophy.ebarakos.com">philosophy</a>
-							<em>notes, fragments, thinking out loud</em>
-						</li>
-						<li>
-							<a href="https://aletheia.ebarakos.com">aletheia <span class="greek-inline">ἀλήθεια</span></a>
-							<em>an app that tests claims &amp; arguments</em>
-						</li>
-					</ul>
+					<div class="plate-body">
+						<nav aria-label="Personal projects">
+							<ul class="listing">
+								<li>
+									<a href="https://philosophy.ebarakos.com">philosophy</a>
+									<em>notes on attention, truth, and ancient philosophy</em>
+								</li>
+								<li>
+									<a href="https://aletheia.ebarakos.com">aletheia <span class="greek-inline" lang="el">αλήθεια</span></a>
+									<em>an app that tests claims &amp; arguments</em>
+								</li>
+								<li>
+									<a href="https://map.ebarakos.com">map</a>
+									<em>a cartography of philosophy</em>
+								</li>
+							</ul>
+						</nav>
+					</div>
 				</div>
-			</div>
+			</section>
 
-		</div>
+		</main>
+
+		<script>
+			(function () {
+				var root = document.documentElement;
+				var meta = document.querySelector('meta[name="theme-color"]');
+				var btn = document.querySelector('.theme-toggle');
+				var themeColors = { dark: '#0b1418', light: '#f4efe1' };
+				function apply(theme) {
+					root.setAttribute('data-theme', theme);
+					if (meta) meta.setAttribute('content', themeColors[theme]);
+					if (btn) btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+					try { localStorage.setItem('theme', theme); } catch (_) {}
+				}
+				btn.addEventListener('click', function () {
+					apply(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+				});
+				apply(root.getAttribute('data-theme') || 'dark');
+			})();
+		</script>
 	</body>
 </html>

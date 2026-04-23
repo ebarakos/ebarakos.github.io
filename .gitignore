@@ -1,5 +1,20 @@
-# Audit / reports
+# Audit / reports (local-only working notes)
 AUDIT_REPORT.md
+REVIEW.md
+
+# Design-handoff artifacts (superseded; kept locally for provenance)
+personal website.zip
+handoff/
+
+# AI assistant artifacts — session state, local caches, transcripts.
+# Keep these local; nothing in here should ship to a public repo.
+.claude/
+.codex
+.codex/
+.aider*
+.cursor/
+*.claude-session*
+*.transcript*
 
 # OS files
 .DS_Store
@@ -11,4 +26,3 @@ Thumbs.db
 *~
 .vscode/
 .idea/
-

@@ -1,12 +1,10 @@
 /*
-	Codex (dark) — ebarakos.com
-	A single-page, two-facing-pages layout.
-	Left:  Vita Activa  — professional links
-	Right: Vita Contemplativa — personal / philosophical links
+	Codex — ebarakos.com
+	Two facing pages: Vita Activa (left) · Vita Contemplativa (right).
 */
 
 /* Reset */
-html, body, div, span, h1, p, a, em, ul, li {
+html, body, div, span, h1, p, a, em, ul, li, main, section, nav {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -17,14 +15,33 @@ html, body, div, span, h1, p, a, em, ul, li {
 ul { list-style: none; }
 *, *:before, *:after { box-sizing: border-box; }
 
-/* Tokens */
+/* Tokens — dark (default) */
 :root {
+	color-scheme: dark light;
 	--bg: #0b1418;
 	--ink: #e6ede8;
 	--muted: #7a8a86;
-	--rule: rgba(230, 237, 232, 0.16);
-	--accent: #6fb3a8;     /* muted teal */
-	--accent-2: #8fbcc9;   /* cool blue (reserved) */
+	--rule: rgba(230, 237, 232, 0.26);
+	--accent: #6fb3a8;
+	--accent-2: #8fbcc9;
+	--glow-1: rgba(111, 179, 168, 0.05);
+	--glow-2: rgba(143, 188, 201, 0.04);
+	--noise: rgba(255, 255, 255, 0.03);
+	--gutter-shadow: rgba(255, 255, 255, 0.03);
+}
+
+/* Tokens — light (parchment codex), user-opt-in via toggle */
+:root[data-theme="light"] {
+	--bg: #f4efe1;
+	--ink: #1c1914;
+	--muted: #6a6253;
+	--rule: rgba(28, 25, 20, 0.22);
+	--accent: #356b60;
+	--accent-2: #4e6f7b;
+	--glow-1: rgba(53, 107, 96, 0.05);
+	--glow-2: rgba(78, 111, 123, 0.04);
+	--noise: rgba(28, 25, 20, 0.035);
+	--gutter-shadow: rgba(28, 25, 20, 0.05);
 }
 
 /* Base */
@@ -33,36 +50,51 @@ body {
 	font-family: "EB Garamond", serif;
 	color: var(--ink);
 	background: var(--bg);
-	overflow: hidden;
 	font-size: 18px;
 	line-height: 1.55;
+	transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* Ambient glows + fine noise (pure CSS, no assets) */
+/* Ambient glows + fine noise */
 body::before {
 	content: "";
 	position: fixed; inset: 0;
 	background:
-		radial-gradient(ellipse at 30% 25%, rgba(111,179,168,0.05), transparent 55%),
-		radial-gradient(ellipse at 75% 80%, rgba(143,188,201,0.04), transparent 55%);
+		radial-gradient(ellipse at 30% 25%, var(--glow-1), transparent 55%),
+		radial-gradient(ellipse at 75% 80%, var(--glow-2), transparent 55%);
 	pointer-events: none;
+	z-index: 0;
 }
 body::after {
 	content: "";
 	position: fixed; inset: 0;
-	background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-	background-size: 3px 3px;
+	background-image: radial-gradient(var(--noise) 1px, transparent 1px);
+	background-size: 4px 4px;
 	opacity: 0.5;
 	pointer-events: none;
+	z-index: 0;
 }
 
 /* Layout: two facing pages with a hairline spine */
 .shell {
 	position: relative;
-	height: 100%;
+	min-height: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1px 1fr;
 	animation: fade 1.3s ease both;
+	z-index: 1;
+}
+/* Gutter shadow — simulates the inner curve of an open book */
+.shell::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 10%; bottom: 10%;
+	width: 56px;
+	transform: translateX(-50%);
+	background: radial-gradient(ellipse at center, var(--gutter-shadow) 0%, transparent 70%);
+	pointer-events: none;
+	z-index: 0;
 }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
@@ -72,17 +104,18 @@ body::after {
 	align-self: center;
 	width: 1px;
 	position: relative;
+	z-index: 1;
 }
 .spine::before, .spine::after {
 	content: "";
 	position: absolute;
 	left: 50%; transform: translateX(-50%);
-	width: 5px; height: 5px; border-radius: 50%;
+	width: 7px; height: 7px; border-radius: 50%;
 	background: var(--accent);
-	opacity: 0.75;
+	opacity: 0.95;
 }
-.spine::before { top: -14px; }
-.spine::after  { bottom: -14px; }
+.spine::before { top: -16px; }
+.spine::after  { bottom: -16px; }
 
 .page {
 	padding: 72px 88px;
@@ -90,6 +123,7 @@ body::after {
 	flex-direction: column;
 	justify-content: space-between;
 	position: relative;
+	z-index: 1;
 }
 .page-left  { text-align: right; }
 .page-right { text-align: left; }
@@ -105,7 +139,20 @@ body::after {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+}
+/* Rule-aligned layout: plate-head content sits at the bottom of the top half,
+   plate-body content sits at the top of the bottom half. The .rule is the shared axis. */
+.plate-head {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+.plate-body {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 }
 
 /* Display headings */
@@ -122,35 +169,47 @@ h1 em {
 	font-weight: 500;
 }
 
-.name-small {
+.tagline {
+	font-family: "EB Garamond", serif;
 	font-style: italic;
-	color: var(--muted);
-	font-size: 18px;
-	margin-top: 16px;
+	font-weight: 400;
+	color: var(--ink);
+	opacity: 0.78;
+	font-size: 24px;
+	line-height: 1.4;
+	margin-top: 22px;
+	max-width: 440px;
 }
+.page-left .tagline { margin-left: auto; }
+
+.bio {
+	font-family: "EB Garamond", serif;
+	font-size: 15px;
+	line-height: 1.55;
+	color: var(--muted);
+	margin-top: 22px;
+	max-width: 440px;
+}
+.bio p { margin: 0; }
+.bio p + p { margin-top: 4px; }
+.page-left .bio { margin-left: auto; text-align: right; }
 
 .rule {
-	display: inline-block;
+	display: block;
 	width: 56px; height: 1px;
 	background: var(--ink);
 	opacity: 0.4;
 	margin: 28px 0 24px 0;
 }
-
-.section-label {
-	font-variant: small-caps;
-	letter-spacing: 0.22em;
-	font-size: 14px;
-	color: var(--accent);
-	margin-bottom: 14px;
-}
+.page-left .rule  { align-self: flex-end; }
+.page-right .rule { align-self: flex-start; }
 
 /* Listings */
 .listing {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	font-size: 20px;
+	font-size: 22px;
 }
 .listing a {
 	color: var(--ink);
@@ -173,6 +232,8 @@ h1 em {
 .page-right .listing a::after { transform-origin: left; }
 .listing a:hover { color: var(--accent); }
 .listing a:hover::after { transform: scaleX(1); }
+.listing a:focus-visible { color: var(--accent); outline: none; }
+.listing a:focus-visible::after { transform: scaleX(1); }
 .listing em {
 	display: block;
 	font-size: 14px;
@@ -185,16 +246,35 @@ h1 em {
 .greek-inline {
 	font-style: italic;
 	color: var(--muted);
-	font-size: 15px;
+	font-size: 18px;
 }
 
-.epigraph {
-	font-style: italic;
+/* Theme toggle — a small typographic switch, top-right of viewport */
+.theme-toggle {
+	position: fixed;
+	top: 72px;
+	right: 88px;
+	z-index: 3;
+	background: none;
+	border: 0;
+	padding: 6px 4px;
+	font: inherit;
+	font-size: 11px;
+	letter-spacing: 0.28em;
+	text-transform: uppercase;
 	color: var(--muted);
-	font-size: 15px;
-	max-width: 320px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 0;
 }
-.page-left .epigraph { margin-left: auto; }
+.theme-toggle .theme-opt { transition: color 0.25s ease, opacity 0.25s ease; opacity: 0.5; }
+.theme-toggle .theme-sep { padding: 0 4px; opacity: 0.35; }
+:root[data-theme="dark"] .theme-opt[data-opt="dark"],
+:root[data-theme="light"] .theme-opt[data-opt="light"] { color: var(--ink); opacity: 1; }
+:root[data-theme="dark"] .theme-toggle:hover .theme-opt[data-opt="light"],
+:root[data-theme="light"] .theme-toggle:hover .theme-opt[data-opt="dark"] { color: var(--accent); opacity: 1; }
+.theme-toggle:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -204,19 +284,119 @@ h1 em {
 	}
 }
 
+/* Intermediate: narrow laptop / large tablet */
+@media (min-width: 901px) and (max-width: 1180px) {
+	.page { padding: 56px 56px; }
+	h1 { font-size: 48px; }
+	.listing { font-size: 20px; }
+	.tagline { font-size: 21px; }
+	.bio { font-size: 14px; }
+}
+
 /* Mobile */
 @media (max-width: 900px) {
-	body { overflow: auto; }
 	.shell {
 		grid-template-columns: 1fr;
-		grid-template-rows: 1fr 1px 1fr;
+		grid-template-rows: auto auto auto;
 		min-height: 100%;
 	}
-	.spine { width: 72%; height: 1px; margin: 0 auto; }
-	.spine::before, .spine::after { display: none; }
+	.shell::before { display: none; }
+
+	.spine {
+		width: 100%;
+		height: 56px;
+		background: none;
+		display: grid;
+		place-items: center;
+		margin: 0;
+	}
+	.spine::before {
+		content: "";
+		grid-area: 1 / 1;
+		position: static;
+		transform: none;
+		width: 72%; height: 1px;
+		background: var(--rule);
+		border-radius: 0;
+		top: auto;
+		opacity: 1;
+		justify-self: center;
+	}
+	.spine::after {
+		content: "✦";
+		grid-area: 1 / 1;
+		position: static;
+		transform: none;
+		width: auto; height: auto;
+		border-radius: 0;
+		background: var(--bg);
+		color: var(--accent);
+		font-size: 18px;
+		padding: 0 16px;
+		opacity: 0.9;
+		bottom: auto;
+		z-index: 1;
+	}
+
 	.page { padding: 48px 28px; }
 	.page-left, .page-right { text-align: left; }
 	.page-left .listing { align-items: flex-start; }
-	.page-left .epigraph { margin-left: 0; }
+	.page-left .tagline { margin-left: 0; }
+	.page-left .bio { margin-left: 0; text-align: left; }
+	.page-left .rule { align-self: flex-start; }
 	h1 { font-size: 40px; }
+	.listing { font-size: 20px; }
+	.tagline { font-size: 20px; margin-top: 18px; }
+	.bio { font-size: 14px; margin-top: 18px; }
+
+	/* Mobile: pages stack, no need for the rule-aligned flex trick */
+	.plate-head, .plate-body { flex: 0 0 auto; display: block; }
+
+	.theme-toggle { top: 18px; right: 20px; font-size: 10px; letter-spacing: 0.22em; }
+}
+
+/* Intermediate: shrink toggle inset with the page */
+@media (min-width: 901px) and (max-width: 1180px) {
+	.theme-toggle { top: 56px; right: 56px; }
+}
+
+/* Print — the codex as a printed object */
+@media print {
+	:root {
+		--bg: #f6f1e3;
+		--ink: #1a1410;
+		--muted: #4f4a3f;
+		--rule: rgba(26, 20, 16, 0.3);
+		--accent: #2e5a50;
+		--glow-1: transparent;
+		--glow-2: transparent;
+		--noise: transparent;
+		--gutter-shadow: transparent;
+	}
+	body { overflow: visible; font-size: 11pt; background: var(--bg); color: var(--ink); }
+	body::before, body::after { display: none; }
+	.theme-toggle { display: none; }
+	.shell { display: block; min-height: 0; animation: none; }
+	.shell::before { display: none; }
+	.spine { display: none; }
+	.page { padding: 0.6in 0.7in; text-align: left; page-break-after: always; }
+	.page-right { page-break-after: auto; }
+	.page-left .rule, .page-left .listing, .page-left .tagline, .page-left .bio { align-self: flex-start; margin-left: 0; text-align: left; }
+	.plate-head, .plate-body { flex: 0 0 auto; display: block; }
+	h1 { font-size: 36pt; }
+	.listing { font-size: 12pt; }
+	.listing a { color: var(--ink); }
+	.listing a::after { display: none; }
+	.listing a[href^="http"]::after,
+	.listing a[href^="mailto"]::after {
+		content: " (" attr(href) ")";
+		position: static;
+		display: inline;
+		background: none;
+		color: var(--muted);
+		font-size: 0.8em;
+		font-style: italic;
+		transform: none;
+		height: auto;
+	}
 }
