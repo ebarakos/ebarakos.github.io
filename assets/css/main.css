@@ -140,13 +140,14 @@ body::after {
 	display: flex;
 	flex-direction: column;
 }
-/* Rule-aligned layout: plate-head content sits at the bottom of the top half,
-   plate-body content sits at the top of the bottom half. The .rule is the shared axis. */
+/* Rule-aligned layout: both halves are flex:1 so the rule is the shared horizontal
+   axis. Content on both sides starts from the top of its half; the empty space
+   between the last line of content and the rule just varies per side. */
 .plate-head {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
+	justify-content: flex-start;
 }
 .plate-body {
 	flex: 1;
