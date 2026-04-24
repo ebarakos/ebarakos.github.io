@@ -169,7 +169,6 @@ h1 em {
 	font-style: italic;
 	font-weight: 500;
 }
-
 .tagline {
 	font-family: "EB Garamond", serif;
 	font-style: italic;
@@ -219,6 +218,13 @@ h1 em {
 	display: inline-block;
 	padding-bottom: 2px;
 	transition: color .2s;
+	background-image: linear-gradient(
+		color-mix(in srgb, currentColor 35%, transparent),
+		color-mix(in srgb, currentColor 35%, transparent)
+	);
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	background-size: 100% 1px;
 }
 .listing a::after {
 	content: "";
@@ -235,6 +241,17 @@ h1 em {
 .listing a:hover::after { transform: scaleX(1); }
 .listing a:focus-visible { color: var(--accent); outline: none; }
 .listing a:focus-visible::after { transform: scaleX(1); }
+.listing a .ext {
+	display: inline-block;
+	font-size: 0.62em;
+	color: var(--muted);
+	margin-left: 0.2em;
+	vertical-align: 0.45em;
+	letter-spacing: 0;
+	transition: color .25s ease, transform .25s ease;
+}
+.listing a:hover .ext,
+.listing a:focus-visible .ext { color: var(--accent); transform: translate(1px, -1px); }
 .listing em {
 	display: block;
 	font-size: 14px;
@@ -269,8 +286,9 @@ h1 em {
 	align-items: center;
 	gap: 0;
 }
-.theme-toggle .theme-opt { transition: color 0.25s ease, opacity 0.25s ease; opacity: 0.5; }
-.theme-toggle .theme-sep { padding: 0 4px; opacity: 0.35; }
+.theme-toggle .theme-opt { transition: color 0.25s ease, opacity 0.25s ease; opacity: 0.5; display: inline-flex; align-items: center; }
+.theme-toggle .theme-opt svg { display: block; }
+.theme-toggle .theme-sep { padding: 0 6px; opacity: 0.35; }
 :root[data-theme="dark"] .theme-opt[data-opt="dark"],
 :root[data-theme="light"] .theme-opt[data-opt="light"] { color: var(--ink); opacity: 1; }
 :root[data-theme="dark"] .theme-toggle:hover .theme-opt[data-opt="light"],
@@ -386,7 +404,8 @@ h1 em {
 	.plate-head, .plate-body { flex: 0 0 auto; display: block; }
 	h1 { font-size: 36pt; }
 	.listing { font-size: 12pt; }
-	.listing a { color: var(--ink); }
+	.listing a { color: var(--ink); background-image: none; }
+	.listing a .ext { display: none; }
 	.listing a::after { display: none; }
 	.listing a[href^="http"]::after,
 	.listing a[href^="mailto"]::after {
