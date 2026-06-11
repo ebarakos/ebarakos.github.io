@@ -3,8 +3,43 @@
 	Two facing pages: Vita Activa (left) · Vita Contemplativa (right).
 */
 
+/* Fonts — self-hosted EB Garamond (variable, wght 400–500), latin + greek subsets.
+   Licensed under the SIL Open Font License: https://openfontlicense.org */
+@font-face {
+	font-family: "EB Garamond";
+	font-style: normal;
+	font-weight: 400 500;
+	font-display: swap;
+	src: url("../fonts/eb-garamond-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "EB Garamond";
+	font-style: normal;
+	font-weight: 400 500;
+	font-display: swap;
+	src: url("../fonts/eb-garamond-greek.woff2") format("woff2");
+	unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+	font-family: "EB Garamond";
+	font-style: italic;
+	font-weight: 400 500;
+	font-display: swap;
+	src: url("../fonts/eb-garamond-latin-italic.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "EB Garamond";
+	font-style: italic;
+	font-weight: 400 500;
+	font-display: swap;
+	src: url("../fonts/eb-garamond-greek-italic.woff2") format("woff2");
+	unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
 /* Reset */
-html, body, div, span, h1, p, a, em, ul, li, main, section, nav {
+html, body, div, span, h1, h2, p, a, em, ul, li, main, section, nav {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -156,15 +191,15 @@ body::after {
 	justify-content: flex-start;
 }
 
-/* Display headings */
-h1 {
+/* Display headings — h1 and h2 share the same plate-title style */
+h1, h2 {
 	font-family: "EB Garamond", serif;
 	font-weight: 500;
 	font-size: 60px;
 	line-height: 1.02;
 	letter-spacing: -0.015em;
 }
-h1 em {
+h1 em, h2 em {
 	color: var(--accent);
 	font-style: italic;
 	font-weight: 500;
@@ -306,7 +341,7 @@ h1 em {
 /* Intermediate: narrow laptop / large tablet */
 @media (min-width: 901px) and (max-width: 1180px) {
 	.page { padding: 56px 56px; }
-	h1 { font-size: 48px; }
+	h1, h2 { font-size: 48px; }
 	.listing { font-size: 20px; }
 	.tagline { font-size: 21px; }
 	.bio { font-size: 14px; }
@@ -363,7 +398,7 @@ h1 em {
 	.page-left .tagline { margin-left: 0; }
 	.page-left .bio { margin-left: 0; text-align: left; }
 	.page-left .rule { align-self: flex-start; }
-	h1 { font-size: 40px; }
+	h1, h2 { font-size: 40px; }
 	.listing { font-size: 20px; }
 	.tagline { font-size: 20px; margin-top: 18px; }
 	.bio { font-size: 14px; margin-top: 18px; }
@@ -402,7 +437,7 @@ h1 em {
 	.page-right { page-break-after: auto; }
 	.page-left .rule, .page-left .listing, .page-left .tagline, .page-left .bio { align-self: flex-start; margin-left: 0; text-align: left; }
 	.plate-head, .plate-body { flex: 0 0 auto; display: block; }
-	h1 { font-size: 36pt; }
+	h1, h2 { font-size: 36pt; }
 	.listing { font-size: 12pt; }
 	.listing a { color: var(--ink); background-image: none; }
 	.listing a .ext { display: none; }

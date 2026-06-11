@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>404 — Evangelos Barakos</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<meta name="theme-color" content="#0b1418" />
+		<meta name="color-scheme" content="dark light" />
+
+		<script>
+			(function () {
+				try {
+					var saved = localStorage.getItem('theme');
+					document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+				} catch (_) {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			})();
+		</script>
+
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+		<link rel="alternate icon" href="/assets/favicon.ico" />
+		<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+		<style>
+			/* 404: a single centered leaf instead of two facing pages */
+			.shell { grid-template-columns: 1fr; place-items: center; }
+			.shell::before { display: none; }
+			.page { text-align: center; justify-content: center; }
+			.plate, .plate-head, .plate-body { flex: 0 0 auto; }
+			.folio { margin-bottom: 28px; }
+			.rule { align-self: center; }
+			.listing { align-items: center; }
+		</style>
+	</head>
+	<body>
+		<main class="shell">
+			<section class="page" aria-labelledby="missing-heading">
+				<div class="plate">
+					<div class="folio">404 · Folium Deest</div>
+					<div class="plate-head">
+						<h1 id="missing-heading">This leaf is missing</h1>
+						<p class="tagline">The codex holds no page at this address.</p>
+					</div>
+					<span class="rule"></span>
+					<div class="plate-body">
+						<ul class="listing">
+							<li><a href="/">Return to the codex</a></li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>
