@@ -296,12 +296,6 @@ h1 em, h2 em {
 }
 .page-left .listing { align-items: flex-end; }
 
-.greek-inline {
-	font-style: italic;
-	color: var(--muted);
-	font-size: 18px;
-}
-
 /* Theme toggle — a small typographic switch, top-right of viewport */
 .theme-toggle {
 	position: fixed;
